@@ -1,0 +1,30 @@
+version: '3'
+services:
+  #angular app
+  web:
+    #allow angular to update automatically on windows
+    environment: 
+      - CHOKIDAR_USEPOLLING=true
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    #port mapping
+    ports:
+      - "4200:4200"
+    #file mapping
+    volumes:
+      #do not replace or map node modules
+      - /app/node_modules
+      - .:/app
+  test:
+    #setup a test service to run
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    ports:
+      - "9876:9876"
+    volumes:
+      #do not replace or map node modules
+      - /app/node_modules
+      - .:/app
+    command: ["ng", "test"]

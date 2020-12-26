@@ -1,0 +1,19 @@
+#Get base app
+FROM node:alpine
+
+#Set a working directory
+WORKDIR '/app'
+
+#Copy package.json before npm install.  Do not copy all files or 
+#npm install will have to run again in the container on every change
+COPY package.json .
+RUN npm install
+
+#install angular cli
+RUN npm install -g @angular/cli
+
+#kind of unneccesary with docker compose since it maps volumes
+COPY . .
+
+#Run start command
+CMD ["ng","serve", "--host","0.0.0.0"]
