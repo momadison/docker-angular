@@ -12,10 +12,11 @@ export class VizOneComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    axios.get('http://localhost:5000', {})
-    .then((response) => {
-      console.log(response)
-    })
+    // axios.get('http://localhost:5000', {})
+    // .then((response) => {
+    //   console.log(response)
+    // })
+    console.log("running connection to backend")
   }
 
 }

@@ -8,10 +8,10 @@ describe('workspace-project App', () => {
     page = new AppPage();
   });
 
-  it('should display welcome message', async () => {
-    await page.navigateTo();
-    expect(await page.getTitleText()).toEqual('python-angular-app app is running!');
-  });
+  // it('should display welcome message', async () => {
+  //   await page.navigateTo();
+  //   expect(await page.getTitleText()).toEqual('python-angular-app app is running!');
+  // });
 
   afterEach(async () => {
     // Assert that there are no errors emitted from the browser
