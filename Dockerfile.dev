@@ -1,5 +1,5 @@
 #Get base app
-FROM node:alpine
+FROM node:12-slim
 
 #Set a working directory
 WORKDIR '/app'
@@ -14,6 +14,23 @@ RUN npm install -g @angular/cli
 
 #kind of unneccesary with docker compose since it maps volumes
 COPY . .
+
+#from puppeteer to get chrome working in container with test
+RUN apt-get update \
+    && apt-get install -y wget gnupg \
+    && wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - \
+    && sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list' \
+    && apt-get update \
+    && apt-get install -y google-chrome-stable fonts-ipafont-gothic fonts-wqy-zenhei fonts-thai-tlwg fonts-kacst fonts-freefont-ttf libxss1 \
+      --no-install-recommends \
+    && rm -rf /var/lib/apt/lists/*
+
+#installs chrome
+# RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
+# RUN sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
+# RUN apt-get update && apt-get install -y google-chrome-stable
+# ENV CHROME_BIN /usr/bin/google-chrome-stable
+
 
 #Run start command
 CMD ["ng","serve", "--host","0.0.0.0"]
